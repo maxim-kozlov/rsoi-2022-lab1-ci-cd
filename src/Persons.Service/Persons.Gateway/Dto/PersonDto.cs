@@ -5,7 +5,7 @@ namespace Persons.Gateway.Dto;
 
 public class PersonDto
 {
-    [Required, JsonPropertyName("personId")]
+    [Required, JsonPropertyName("id")]
     public int Id { get; set; }
     
     [Required, JsonPropertyName("name")]
