@@ -46,13 +46,13 @@ jobs:
           heroku_email: maxkozlov22@yandex.ru
           usedocker: true
 
-      # - name: Run API Tests
-      #   uses: matt-ball/newman-action@master
-      #   with:
-      #     collection: postman/[inst] Lab1.postman_collection.json
-      #     environment: postman/[inst][heroku] Lab1.postman_environment.json
-      #     delayRequest: 100
-      #     reporters: '[ "cli" ]'
+      - name: Run API Tests
+        uses: matt-ball/newman-action@master
+        with:
+          collection: postman/[inst] Lab1.postman_collection.json
+          environment: postman/[inst][heroku] Lab1.postman_environment.json
+          delayRequest: 100
+          reporters: '[ "cli" ]'
 
       # - name: Autograding
       #   uses: education/autograding@v1
