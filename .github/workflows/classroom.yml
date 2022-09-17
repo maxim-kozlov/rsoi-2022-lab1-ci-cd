@@ -20,14 +20,23 @@ jobs:
         uses: actions/setup-dotnet@v2
         with:
           dotnet-version: 6.0.x
+      
       - name: Install dependencies
         run: dotnet restore src/Persons.Service/Persons.Service.sln
+      
       - name: Build
         run: dotnet publish src/Persons.Service/Persons.Gateway/Persons.Gateway.csproj -c Release -o PersonsGatewayPublish --no-restore
-      - name: Test
-        run:  dotnet test src/Persons.Service/Persons.Tests/Persons.Tests.csproj --no-restore
       
-      # - name: Run Unit Test 
+      - name: Test
+        run:  dotnet test src/Persons.Service/Persons.Tests/Persons.Tests.csproj --no-restore --verbosity normal
+      
+      - name: Upload dotnet test results
+        uses: actions/upload-artifact@v3
+        with:
+          name: dotnet-results
+          path: TestResults
+        # Use always() to always run this step to publish test results when there are test failures
+        if: ${{ always() }}
 
       # - name: Deploy Project
 
