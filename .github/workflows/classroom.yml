@@ -21,9 +21,9 @@ jobs:
         with:
           dotnet-version: 6.0.x
       - name: Install dependencies
-        run: dotnet restore
+        run: dotnet restore src/Persons.Service/Persons.Service.sln
       - name: Build
-        run: dotnet publish src/Persons.Service/Persons.Gateway/Persons.Gateway.csproj -c Release -o PersonsGatewayPublish
+        run: dotnet publish src/Persons.Service/Persons.Gateway/Persons.Gateway.csproj -c Release -o PersonsGatewayPublish --no-restore
       - name: Test
         run:  dotnet test src/Persons.Service/Persons.Tests/Persons.Tests.csproj --no-restore
       
