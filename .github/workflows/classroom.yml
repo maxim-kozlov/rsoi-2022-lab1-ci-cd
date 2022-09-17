@@ -38,7 +38,13 @@ jobs:
         # Use always() to always run this step to publish test results when there are test failures
         if: ${{ always() }}
 
-      # - name: Deploy Project
+      - name: Deploy project
+        uses: akhileshns/heroku-deploy@v3.4.6
+        with:
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: rsoi-lab01-2022
+          heroku_email: maxkozlov22@yandex.ru
+          usedocker: true
 
       # - name: Run API Tests
       #   uses: matt-ball/newman-action@master
