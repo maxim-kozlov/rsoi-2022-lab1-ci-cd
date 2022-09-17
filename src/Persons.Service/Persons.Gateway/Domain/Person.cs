@@ -1,4 +1,4 @@
-namespace Persons.Gateway.Database;
+namespace Persons.Gateway.Domain;
 
 public class Person
 {

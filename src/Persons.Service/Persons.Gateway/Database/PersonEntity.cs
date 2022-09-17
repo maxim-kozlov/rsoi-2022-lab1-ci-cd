@@ -1,6 +1,6 @@
 namespace Persons.Gateway.Database;
 
-public class Person
+public class PersonEntity
 {
     public int Id { get; set; }
     

@@ -3,8 +3,11 @@ using System.Text.Json.Serialization;
 
 namespace Persons.Gateway.Dto;
 
-public class RawPerson
+public class PersonDto
 {
+    [Required, JsonPropertyName("personId")]
+    public int Id { get; set; }
+    
     [Required, JsonPropertyName("name")]
     public string Name { get; set; } = null!;
 
