@@ -16,10 +16,17 @@ jobs:
           fetch-depth: 0
 
       # TODO build, test and deploy project
-      - name: Build Project
-        dotnet publish src/Persons.Gateway/Persons.Gateway.csproj -c Release -o PersonsGatewayPublish
-        cp Dockerfile PersonsGatewayPublish/Dockerfile
-        cp .dockerignore PersonsGatewayPublish/.dockerignore
+      - name: Setup .NET SDK 
+        uses: actions/setup-dotnet@v2
+        with:
+          dotnet-version: 6.0
+      - name: Install dependencies
+        run: dotnet restore
+      - name: Build
+        run: dotnet publish src/Persons.Service/Persons.Gateway/Persons.Gateway.csproj -c Release -o PersonsGatewayPublish
+      - name: Test
+        run:  dotnet test src/Persons.Service/Persons.Tests/Persons.Tests.csproj --no-restore
+      
       # - name: Run Unit Test 
 
       # - name: Deploy Project
