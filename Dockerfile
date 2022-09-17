@@ -4,6 +4,6 @@ WORKDIR /app
 
 COPY PersonsGatewayPublish/ .
 
-EXPOSE 8080
+# EXPOSE 8080
 
 ENTRYPOINT ["dotnet", "Persons.Gateway.dll"]
