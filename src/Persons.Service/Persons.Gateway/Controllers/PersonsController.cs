@@ -84,14 +84,14 @@ public class PersonsController : ControllerBase
     [SwaggerResponse(statusCode: StatusCodes.Status201Created, type: typeof(PersonDto), description: "Созданный человек.")]
     [SwaggerResponse(statusCode: StatusCodes.Status400BadRequest, description: "Невалидные данные.")]
     [SwaggerResponse(statusCode: StatusCodes.Status500InternalServerError, description: "Ошибка на стороне сервера.")]
-    public async Task<IActionResult> Create([FromBody] RawPerson rawPerson)
+    public async Task<IActionResult> Create([FromBody] RawPersonDto rawPerson)
     {
         try
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
             
-            var person = await _personsRepository.CreatePersonAsync(rawPerson);
+            var person = await _personsRepository.CreatePersonAsync(_mapper.Map<RawPersonDto, RawPerson>(rawPerson));
             return Created($"api/v1/persons/{person.Id}", _mapper.Map<Person, PersonDto>(person));
         }
         catch (Exception ex)
@@ -105,20 +105,20 @@ public class PersonsController : ControllerBase
     /// Обновить информацию о человеке
     /// </summary>
     /// <param name="personId">Идентификатор человека </param>
-    /// <param name="rawPerson">Новая информация о человеке </param>
+    /// <param name="patchPerson">Новая информация о человеке </param>
     /// <returns></returns>
     [HttpPatch("{personId:int}")]
     [SwaggerResponse(statusCode: StatusCodes.Status200OK, type: typeof(PersonDto), description: "Пользователь обновлён.")]
     [SwaggerResponse(statusCode: StatusCodes.Status404NotFound, description: "Пользователь не найден.")]
     [SwaggerResponse(statusCode: StatusCodes.Status500InternalServerError, description: "Ошибка на стороне сервера.")]
-    public async Task<IActionResult> Update(int personId, [FromBody] RawPerson rawPerson)
+    public async Task<IActionResult> Patch(int personId, [FromBody] PatchPersonDto patchPerson)
     {
         try
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
             
-            var person = await _personsRepository.UpdatePersonAsync(personId, rawPerson);
+            var person = await _personsRepository.PatchPersonAsync(personId, _mapper.Map<PatchPersonDto, PatchPerson>(patchPerson));
             if (person == null)
                 return NotFound(personId);
             return Ok(_mapper.Map<Person, PersonDto>(person));

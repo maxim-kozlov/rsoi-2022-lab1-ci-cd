@@ -74,7 +74,7 @@ public class PersonsRepository : IPersonsRepository
         }
     }
     
-    public async Task<Person?> UpdatePersonAsync(int personId, RawPerson rawPerson)
+    public async Task<Person?> PatchPersonAsync(int personId, PatchPerson patchPerson)
     {
         try
         {
@@ -82,14 +82,14 @@ public class PersonsRepository : IPersonsRepository
             if (entity == null)
                 return null;
             
-            _mapper.Map(rawPerson, entity);
+            _mapper.Map(patchPerson, entity);
             await _context.SaveChangesAsync();
             
             return _mapper.Map<PersonEntity, Person>(entity);
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Error update person: {person}", rawPerson);
+            _logger.LogError(ex, "Error patch person: {person}", patchPerson);
             throw;
         }
     }

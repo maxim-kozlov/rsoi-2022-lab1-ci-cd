@@ -10,10 +10,17 @@ public class PersonProfile: Profile
     public PersonProfile()
     {
         CreateMap<Person, PersonDto>();
+        
         CreateMap<RawPersonDto, RawPerson>();
-
+        CreateMap<PatchPersonDto, PatchPerson>();
+        
         CreateMap<Person, PersonEntity>();
         CreateMap<RawPerson, PersonEntity>();
+        
         CreateMap<PersonEntity, Person>();
+        
+        CreateMap<PatchPerson, PersonEntity>()
+            .ForAllMembers(opt 
+                => opt.Condition((src, dest, srcMember) => srcMember != null));
     }
 }

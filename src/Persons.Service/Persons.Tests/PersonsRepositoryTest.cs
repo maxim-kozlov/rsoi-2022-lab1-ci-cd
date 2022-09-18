@@ -1,4 +1,5 @@
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using Bogus;
 using Microsoft.EntityFrameworkCore;
@@ -83,6 +84,35 @@ public class PersonsRepositoryTest
         
         // assert
         Assert.Null(result);
+    }
+    
+    [Fact]
+    public async Task PatchOkTest()
+    {
+        // arrange
+        var fixture = new PersonsFixture();
+        var faker = CreateFakerPersonEntity();
+        var entities = faker.Generate(5);
+        await fixture.PersonsContext.Persons.AddRangeAsync(entities);
+        await fixture.PersonsContext.SaveChangesAsync();
+        
+        var person = entities[^1];
+        var patchModel = new PatchPerson()
+        {
+            Name = "New name",
+            Work = "New work"
+        };
+        
+        // act
+        var result = await fixture.PersonsRepository.PatchPersonAsync(person.Id, patchModel);
+        
+        // assert
+        Assert.NotNull(result);
+        
+        Assert.Equal(result.Name, patchModel.Name);
+        Assert.Equal(result.Work, patchModel.Work);
+        Assert.Equal(result.Address, person.Address);
+        Assert.Equal(result.Age, person.Age);
     }
     
     [Fact]

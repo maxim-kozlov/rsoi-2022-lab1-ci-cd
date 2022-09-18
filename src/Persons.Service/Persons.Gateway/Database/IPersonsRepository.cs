@@ -24,14 +24,14 @@ public interface IPersonsRepository
     /// <param name="rawPerson"></param>
     /// <returns></returns>
     Task<Person> CreatePersonAsync(RawPerson rawPerson);
-    
+
     /// <summary>
     /// Обновить человека
     /// </summary>
     /// <param name="personId"></param>
-    /// <param name="rawPerson"></param>
+    /// <param name="patchPerson">Модель обновления записи о человеке </param>
     /// <returns></returns>
-    Task<Person?> UpdatePersonAsync(int personId, RawPerson rawPerson);
+    Task<Person?> PatchPersonAsync(int personId, PatchPerson patchPerson);
     
     /// <summary>
     /// Удалить человека
