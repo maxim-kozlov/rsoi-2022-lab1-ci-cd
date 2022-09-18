@@ -41,7 +41,7 @@ jobs:
       - name: Deploy project
         uses: akhileshns/heroku-deploy@v3.4.6
         with:
-          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_api_key: bd3e897f-c8bd-4c15-b1ee-81f06e604e80 #${{secrets.HEROKU_API_KEY}}
           heroku_app_name: rsoi-lab01-2022
           heroku_email: maxkozlov22@yandex.ru
           usedocker: true
