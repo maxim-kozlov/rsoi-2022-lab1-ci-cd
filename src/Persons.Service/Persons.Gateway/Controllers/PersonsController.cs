@@ -102,7 +102,7 @@ public class PersonsController : ControllerBase
     }
 
     /// <summary>
-    /// Обновить информацию о человеке
+    /// Частичное обновление информации о человеке
     /// </summary>
     /// <param name="personId">Идентификатор человека </param>
     /// <param name="patchPerson">Новая информация о человеке </param>
