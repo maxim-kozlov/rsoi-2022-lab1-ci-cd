@@ -102,13 +102,13 @@ public class PersonsController : ControllerBase
     }
 
     /// <summary>
-    /// Удалить информацию о человеке
+    /// Обновить информацию о человеке
     /// </summary>
     /// <param name="personId">Идентификатор человека </param>
     /// <param name="rawPerson">Новая информация о человеке </param>
     /// <returns></returns>
     [HttpPatch("{personId:int}")]
-    [SwaggerResponse(statusCode: StatusCodes.Status202Accepted, type: typeof(PersonDto), description: "Пользователь обновлён.")]
+    [SwaggerResponse(statusCode: StatusCodes.Status200OK, type: typeof(PersonDto), description: "Пользователь обновлён.")]
     [SwaggerResponse(statusCode: StatusCodes.Status404NotFound, description: "Пользователь не найден.")]
     [SwaggerResponse(statusCode: StatusCodes.Status500InternalServerError, description: "Ошибка на стороне сервера.")]
     public async Task<IActionResult> Update(int personId, [FromBody] RawPerson rawPerson)
